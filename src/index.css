@@ -1,4 +1,29 @@
-/* Stile per il contenitore della lista */
+/* Stile per il contenitore della navbar */
+nav {
+    background-color: #282c34;
+    padding: 1rem 2rem;
+    text-align: center;
+}
+
+/* Stile base per i link all'interno della navbar */
+nav a {
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 1rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #61dafb;
+}
+
+nav a.active {
+    border-bottom: 2px solid #61dafb;
+    padding-bottom: 0.2rem;
+}
+
+/* Titolo */
 h1 {
     text-align: center;
     margin-top: 20px;
