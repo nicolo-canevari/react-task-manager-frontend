@@ -1,0 +1,57 @@
+/* Stile per il contenitore della lista */
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    color: #333;
+}
+
+/* Tabella */
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Intestazioni della tabella */
+thead th {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    text-align: left;
+}
+
+/* Righe della tabella */
+tbody td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Colore alternato delle righe */
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Colori per lo stato del task */
+.status.to-do {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.status.doing {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.status.done {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+/* Celle dello Stato  */
+.status {
+    padding: 8px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+}
