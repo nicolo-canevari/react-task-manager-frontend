@@ -1,4 +1,5 @@
 import React, { useRef, useState, useMemo } from "react";
+import useTasks from "../Hooks/useTask";
 
 // Caratteri vietati nel titolo
 const symbols = "!@#$%^&*()-_=+[]{}|;:'\\\",.<>?/`~";
@@ -16,6 +17,9 @@ export default function AddTask() {
 
     // Ref per accedere direttamente al valore del select (campo stato)
     const statusRef = useRef();
+
+    // Usa la funzione addTask dall’hook
+    const { addTask } = useTasks();
 
     // Memoizzazione del task (viene ricreato solo se cambia title)
     const newTask = useMemo(() => {
@@ -35,7 +39,7 @@ export default function AddTask() {
         };
     }, [title]); // Ricalcola solo se cambia `title`
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
 
         e.preventDefault();   // Evita refresh pagina
 
@@ -45,22 +49,22 @@ export default function AddTask() {
             return;
         }
 
-        // Controllo: il titolo non deve contenere simboli speciali
-        if ([...title].some(char => symbols.includes(char))) {
-            setError("Il nome non può contenere simboli speciali.");
-            return;
+        try {
+            // Chiamata API per creare la task
+            await addTask(newTask);
+
+            // Se ok, resetta campi e mostra conferma
+            alert("Task creata con successo!");
+
+            setTitle(""); // Reset titolo
+            if (descriptionRef.current) descriptionRef.current.value = "";
+            if (statusRef.current) statusRef.current.value = "To do";
+            setError(""); // Pulisce errori
+
+        } catch (err) {
+            // Mostra errore se lanciato da addTask()
+            alert(err.message || "Errore durante la creazione del task.");
         }
-
-        // Mostra in console il nuovo task creato
-        console.log("Nuovo task:", newTask);
-
-        // Pulisce eventuali errori precedenti
-        setError("");
-
-        // Resetta i campi dopo l'invio
-        setTitle("");
-        if (descriptionRef.current) descriptionRef.current.value = "";
-        if (statusRef.current) statusRef.current.value = "To do";
 
     };
 

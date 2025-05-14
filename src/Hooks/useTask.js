@@ -15,10 +15,37 @@ export default function useTasks() {
             .catch((err) => console.error("Errore nel fetch:", err));
     }, []);
 
-    // Funzioni 
-    const addTask = (newTask) => {
+    // Funzione per aggiungere un nuovo task
+    const addTask = async (newTask) => {
+        try {
+            // Effettua una chiamata POST per creare un nuovo task
+            const response = await fetch(`${VITE_API_URL}/tasks`, {
+                // Metodo POST per creare dati
+                method: "POST",
+                headers: {
+                    // Specifica il tipo di contenuto
+                    "Content-Type": "application/json",
+                },
+                // Invia il nuovo task come JSON
+                body: JSON.stringify(newTask),
+            });
 
+            // Converte la risposta in oggetto JS
+            const data = await response.json();
+
+            // Se il server risponde con success: true
+            if (!response.ok || !data.success) {
+                throw new Error(data.message || "Errore nella creazione del task.");
+            }
+
+            setTasks(prev => [...prev, data.task]);
+
+        } catch (err) {
+            // Propaga l'errore al chiamante
+            throw new Error(err.message || "Errore nella creazione del task.");
+        }
     };
+
 
     const removeTask = (taskId) => {
 
