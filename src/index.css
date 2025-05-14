@@ -19,37 +19,30 @@ nav a:hover {
 }
 
 nav a.active {
-    border-bottom: 2px solid #61dafb;
+    border-bottom: 0.125rem solid #61dafb;
     padding-bottom: 0.2rem;
 }
 
-/* Titolo */
-h1 {
-    text-align: center;
-    margin-top: 20px;
-    color: #333;
-}
-
-/* Tabella */
+/* Stile per il contenuto della tabella */
 table {
     width: 80%;
-    margin: 20px auto;
+    margin: 2rem auto;
     border-collapse: collapse;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
 }
 
 /* Intestazioni della tabella */
 thead th {
     background-color: #007bff;
     color: white;
-    padding: 10px;
+    padding: 1rem;
     text-align: left;
 }
 
 /* Righe della tabella */
 tbody td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
+    padding: 1rem;
+    border-bottom: 0.0625rem solid #ddd;
 }
 
 /* Colore alternato delle righe */
@@ -73,10 +66,77 @@ tbody tr:nth-child(even) {
     color: #155724;
 }
 
-/* Celle dello Stato  */
+/* Celle dello Stato */
 .status {
-    padding: 8px;
-    border-radius: 5px;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
     font-weight: bold;
     text-align: center;
+}
+
+/* Stile per il contenuto del form */
+form {
+    max-width: 31.25rem;
+    /* 500px */
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #f4f4f4;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.125rem 0.375rem rgba(0, 0, 0, 0.1);
+}
+
+/* Titolo del form */
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 1.5rem;
+    font-size: 1.75rem;
+}
+
+/* Ogni blocco del form */
+form div {
+    margin-bottom: 1.2rem;
+}
+
+/* Label */
+form label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: bold;
+    color: #444;
+}
+
+/* Input, textarea e select */
+form input,
+form textarea,
+form select {
+    width: 100%;
+    padding: 0.6rem;
+    border: 0.0625rem solid #ccc;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+/* Bottone */
+form button {
+    background-color: #007bff;
+    color: white;
+    padding: 0.7rem 1.5rem;
+    border: none;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+/* Messaggio di errore */
+form p {
+    color: red;
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
 }
