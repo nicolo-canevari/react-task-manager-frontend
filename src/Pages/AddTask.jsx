@@ -1,71 +1,64 @@
-import React, { useRef, useState, useMemo } from "react";
+import React, { useRef, useState } from "react";
 import useTasks from "../Hooks/useTask";
 
-// Caratteri vietati nel titolo
+// Simboli non ammessi nel titolo 
 const symbols = "!@#$%^&*()-_=+[]{}|;:'\\\",.<>?/`~";
 
 export default function AddTask() {
 
-    // Stato controllato per il titolo del task
+    // Stato controllato per il titolo
     const [title, setTitle] = useState("");
 
-    // Stato per gestire messaggi di errore di validazione
+    // Stato per eventuali errori di validazione
     const [error, setError] = useState("");
 
-    // Ref per accedere direttamente al valore della textarea (campo descrizione)
+    // Ref per accedere direttamente alla textarea (descrizione)
     const descriptionRef = useRef();
 
-    // Ref per accedere direttamente al valore del select (campo stato)
+    // Ref per accedere al valore selezionato nel select (stato)
     const statusRef = useRef();
 
-    // Usa la funzione addTask dall’hook
-    const { addTask } = useTasks();
+    // Funzione per aggiungere una nuova task (dal custom hook)
+    const { addTask, fetchTasks } = useTasks(); // fetchTasks per aggiornare la lista
 
-    // Memoizzazione del task (viene ricreato solo se cambia title)
-    const newTask = useMemo(() => {
-        return {
-
-            title: title.trim(),  // Rimuove eventuali spazi bianchi
-
-            // Accesso sicuro al valore della textarea
-            description: descriptionRef.current?.value.trim() || "",
-
-            // Stato selezionato oppure "To do" di default
-            status: statusRef.current?.value || "To do",
-
-            // Data corrente in formato ISO
-            createdAt: new Date().toISOString(),
-
-        };
-    }, [title]); // Ricalcola solo se cambia `title`
-
+    // Funzione eseguita al submit del form
     const handleSubmit = async (e) => {
+        e.preventDefault(); // Evita il refresh della pagina
 
-        e.preventDefault();   // Evita refresh pagina
-
-        // Controllo: il titolo non deve essere vuoto
+        // Validazione: il titolo non deve essere vuoto
         if (!title.trim()) {
             setError("Il nome del task non può essere vuoto.");
             return;
         }
 
+        // Crea un oggetto task con i dati inseriti
+        const newTask = {
+            title: title.trim(),
+            description: descriptionRef.current?.value.trim() || "",
+            status: statusRef.current?.value || "To do",
+            createdAt: new Date().toISOString(), // Data corrente in formato ISO
+        };
+
         try {
-            // Chiamata API per creare la task
+            // Aggiunge la task tramite API
             await addTask(newTask);
 
-            // Se ok, resetta campi e mostra conferma
+            // Mostra conferma
             alert("Task creata con successo!");
 
-            setTitle(""); // Reset titolo
+            // Resetta i campi del form
+            setTitle("");
             if (descriptionRef.current) descriptionRef.current.value = "";
             if (statusRef.current) statusRef.current.value = "To do";
-            setError(""); // Pulisce errori
+            setError("");
+
+            // Aggiorna la lista delle task dopo l'aggiunta
+            await fetchTasks();
 
         } catch (err) {
-            // Mostra errore se lanciato da addTask()
+            // Gestione dell'errore
             alert(err.message || "Errore durante la creazione del task.");
         }
-
     };
 
     return (
@@ -74,27 +67,27 @@ export default function AddTask() {
 
             <form onSubmit={handleSubmit}>
 
-                {/* Campo input per il titolo del task */}
+                {/* Campo input per il titolo */}
                 <div>
                     <label htmlFor="title">Nome del Task:</label><br />
                     <input
                         id="title"
                         type="text"
                         value={title}
-                        onChange={(e) => setTitle(e.target.value)}  // Aggiorna lo stato al digitare
+                        onChange={(e) => setTitle(e.target.value)} // Stato controllato
                     />
                 </div>
 
-                {/* Mostra messaggio di errore se presente */}
+                {/* Messaggio di errore */}
                 {error && <p style={{ color: "red" }}>{error}</p>}
 
-                {/* Campo textarea per la descrizione del task */}
+                {/* Campo textarea per descrizione */}
                 <div>
                     <label htmlFor="description">Descrizione:</label><br />
                     <textarea id="description" ref={descriptionRef} />
                 </div>
 
-                {/* Campo select per scegliere lo stato del task */}
+                {/* Campo select per stato */}
                 <div>
                     <label htmlFor="status">Stato:</label><br />
                     <select id="status" ref={statusRef} defaultValue="To do">
@@ -104,9 +97,8 @@ export default function AddTask() {
                     </select>
                 </div>
 
-                {/* Bottone per inviare il form */}
+                {/* Bottone per inviare */}
                 <button type="submit">Aggiungi Task</button>
-
             </form>
         </div>
     );

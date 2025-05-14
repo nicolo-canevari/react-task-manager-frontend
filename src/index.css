@@ -140,3 +140,48 @@ form p {
     margin-top: 0.5rem;
     font-size: 0.95rem;
 }
+
+
+/* Stile Container per la pagina dettaglio */
+.task-detail-container {
+    max-width: 600px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.1);
+    font-size: 1.05rem;
+    color: #333;
+}
+
+/* Titolo della pagina */
+.task-detail-title {
+    text-align: center;
+    color: #007bff;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Messaggio di caricamento */
+.loading-message {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #555;
+}
+
+/* Bottone per eliminare il task */
+.delete-button {
+    margin-top: 1.5rem;
+    background-color: #dc3545;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}

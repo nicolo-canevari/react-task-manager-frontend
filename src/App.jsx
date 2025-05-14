@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./Components/Navbar";
 import TaskList from "./Pages/TaskList";
 import AddTask from "./Pages/AddTask";
+import TaskDetail from "./Pages/TaskDetail";
 import GlobalProvider from "./Context/GlobalContext";
 import './index.css'
 
@@ -23,6 +24,9 @@ function App() {
 
           {/* Rotta per aggiungere un nuovo task */}
           <Route path="/add" element={<AddTask />} />
+
+          {/* Rotta dettagl del singolo task */}
+          <Route path="/task/:id" element={<TaskDetail />} />
         </Routes>
       </BrowserRouter>
     </GlobalProvider>
