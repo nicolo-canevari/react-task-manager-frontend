@@ -28,7 +28,7 @@ export default function Modal({
                 <h2>{title}</h2>
 
                 {/* Contenuto testuale o descrizione */}
-                <p>{content}</p>
+                <div className="modal-body">{content}</div>
 
                 {/* Contenitore dei bottoni */}
                 <div className="modal-buttons">
