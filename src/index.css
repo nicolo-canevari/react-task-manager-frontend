@@ -185,3 +185,92 @@ form p {
 .delete-button:hover {
     background-color: #c82333;
 }
+
+
+/* Stile Contenitore della pagina TaskDetail */
+.task-detail-container {
+    max-width: 600px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.1);
+    font-size: 1.05rem;
+    color: #333;
+}
+
+/* Titolo della pagina */
+.task-detail-title {
+    text-align: center;
+    color: #007bff;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Stile per le informazioni del task */
+.task-info {
+    margin-bottom: 1.2rem;
+}
+
+/* Stile per ogni singolo campo delle informazioni del task */
+.task-info p {
+    font-size: 1.05rem;
+    margin: 0.5rem 0;
+}
+
+/* Stile per il nome del task */
+.task-info .task-name {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Stile per il pulsante "Elimina Task" */
+.delete-button {
+    display: inline-block;
+    margin-top: 1.5rem;
+    background-color: #dc3545;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect per il bottone Elimina */
+.delete-button:hover {
+    background-color: #c82333;
+}
+
+/* Messaggio di errore */
+.error-message {
+    color: red;
+    margin-top: 1rem;
+    font-size: 1rem;
+    text-align: center;
+}
+
+/* Pulsante di conferma eliminazione (dopo il click) */
+.confirm-delete-button {
+    background-color: #007bff;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect per il pulsante di conferma */
+.confirm-delete-button:hover {
+    background-color: #0056b3;
+}
+
+/* Stile per la zona di caricamento (se il task non è ancora stato caricato) */
+.loading-message {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #555;
+}

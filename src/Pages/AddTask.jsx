@@ -1,5 +1,6 @@
-import React, { useRef, useState } from "react";
-import useTasks from "../Hooks/useTask";
+import React, { useRef, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { GlobalContext } from "../Context/GlobalContext";
 
 // Simboli non ammessi nel titolo 
 const symbols = "!@#$%^&*()-_=+[]{}|;:'\\\",.<>?/`~";
@@ -18,8 +19,10 @@ export default function AddTask() {
     // Ref per accedere al valore selezionato nel select (stato)
     const statusRef = useRef();
 
-    // Funzione per aggiungere una nuova task (dal custom hook)
-    const { addTask, fetchTasks } = useTasks(); // fetchTasks per aggiornare la lista
+    // Funzione per aggiungere una nuova task 
+    const { addTask, fetchTasks } = useContext(GlobalContext);
+
+    const navigate = useNavigate();
 
     // Funzione eseguita al submit del form
     const handleSubmit = async (e) => {
@@ -28,6 +31,12 @@ export default function AddTask() {
         // Validazione: il titolo non deve essere vuoto
         if (!title.trim()) {
             setError("Il nome del task non può essere vuoto.");
+            return;
+        }
+
+        // Verifica se il titolo contiene simboli non ammessi
+        if ([...title].some((char) => symbols.includes(char))) {
+            setError("Il nome del task contiene simboli non ammessi.");
             return;
         }
 
@@ -52,8 +61,11 @@ export default function AddTask() {
             if (statusRef.current) statusRef.current.value = "To do";
             setError("");
 
+            // Naviga subito alla home
+            navigate("/");
+
             // Aggiorna la lista delle task dopo l'aggiunta
-            await fetchTasks();
+            fetchTasks();
 
         } catch (err) {
             // Gestione dell'errore
