@@ -1,6 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { GlobalContext } from "../Context/GlobalContext";
+import Modal from "../Components/Modal";
 
 // Componente che mostra i dettagli di un singolo task
 export default function TaskDetail() {
@@ -14,6 +15,9 @@ export default function TaskDetail() {
     // Ottiene la lista globale dei task dal context
     const { tasks, setTasks, removeTask } = useContext(GlobalContext);
 
+    // stato per mostrare/nascondere la modale
+    const [showModal, setShowModal] = useState(false);
+
     // Cerca il task corrispondente all'id ottenuto dalla URL
     const task = tasks.find((t) => t.id === parseInt(id));
 
@@ -23,24 +27,19 @@ export default function TaskDetail() {
     }
 
     // Funzione chiamata quando si preme il pulsante "Elimina Task"
-    const handleDelete = async () => {
-        if (confirm("Sei sicuro di voler eliminare questo task?")) {
-            try {
-                // Chiama la funzione per eliminare il task
-                await removeTask(task.id);
-
-                // Mostra un messaggio di conferma
-                alert("Task eliminata con successo.");
-
-                // Aggiorna il contesto rimuovendo il task
-                setTasks((prevTasks) => prevTasks.filter((t) => t.id !== task.id));
-
-                // Reindirizza alla home
-                navigate("/");
-            } catch (err) {
-                // Mostra un messaggio di errore se qualcosa va storto
-                alert(err.message || "Errore durante l'eliminazione.");
-            }
+    const handleDeleteConfirm = async () => {
+        try {
+            // Chiama la funzione per rimuovere il task dal backend o dallo stato globale
+            await removeTask(task.id);
+            // Mostra un messaggio di conferma all'utente
+            alert("Task eliminata con successo.");
+            // Aggiorna lo stato globale dei task rimuovendo quello eliminato
+            setTasks((prevTasks) => prevTasks.filter((t) => t.id !== task.id));
+            // Reindirizza l'utente alla pagina principale (home)
+            navigate("/");
+        } catch (err) {
+            // Se c'è un errore, mostra un messaggio all'utente
+            alert(err.message || "Errore durante l'eliminazione.");
         }
     };
 
@@ -56,8 +55,19 @@ export default function TaskDetail() {
                 <p><strong className="task-name">Creato il:</strong> {new Date(task.createdAt).toLocaleString()}</p>
             </div>
 
-            {/* Bottone per eliminare il task */}
-            <button className="delete-button" onClick={handleDelete}>Elimina Task</button>
+            {/* Bottone per aprire la modale */}
+            <button className="delete-button" onClick={() => setShowModal(true)}>Elimina Task</button>
+
+            {/* Modale di conferma eliminazione */}
+            <Modal
+                title="Conferma eliminazione"
+                content="Sei sicuro di voler eliminare questo task? L'operazione non può essere annullata."
+                show={showModal}
+                onClose={() => setShowModal(false)}
+                onConfirm={handleDeleteConfirm}
+                confirmText="Elimina"
+            />
         </div>
     );
+
 }
