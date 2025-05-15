@@ -8,10 +8,14 @@ export default function TaskList() {
     const { tasks } = useContext(GlobalContext);
 
     return (
+
         <div>
+
             <h1>Lista dei Task</h1>
+
             {/* Tabella per visualizzare i task */}
             <table>
+
                 <thead>
                     <tr>
                         {/* Intestazioni delle colonne della tabella */}
@@ -20,14 +24,18 @@ export default function TaskList() {
                         <th>Data di Creazione</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     {/* Cicla l'elenco dei task e renderizza una riga per ciascuno */}
                     {tasks.map((task) => (
                         <TaskRow key={task.id} task={task} />  // Passa ogni oggetto "task" come prop al componente TaskRow
                     ))}
                 </tbody>
+
             </table>
+
         </div>
+
     );
 
 }

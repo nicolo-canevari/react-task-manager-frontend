@@ -1,32 +1,41 @@
 import { useEffect, useState } from "react";
+// Estrae la variabile dell'URL dell'API dall'ambiente
 const { VITE_API_URL } = import.meta.env;
 
+// Hook personalizzato che gestisce il recupero e la manipolazione dei task
 export default function useTasks() {
+
+    // Stato locale che contiene l'elenco dei task
     const [tasks, setTasks] = useState([]);
 
-    // Recupera i task all'avvio
+    // useEffect eseguito solo al primo render del componente
     useEffect(() => {
+
+        // Effettua una richiesta GET per recuperare i task dal server
         fetch(`${VITE_API_URL}/tasks`)
-            .then((res) => res.json())
+            .then((res) => res.json()) // Converte la risposta in JSON
             .then((data) => {
                 console.log("Tasks ricevuti:", data); // Debug
-                setTasks(data); // Salva nello stato
+                setTasks(data); // Aggiorna lo stato con i task ricevuti
             })
             .catch((err) => console.error("Errore nel fetch:", err));
     }, []);
 
     // Funzione per aggiungere un nuovo task
     const addTask = async (newTask) => {
+
         try {
+
             // Effettua una chiamata POST per creare un nuovo task
             const response = await fetch(`${VITE_API_URL}/tasks`, {
-                // Metodo POST per creare dati
+
+                // Metodo POST per inviare nuovi dati
                 method: "POST",
                 headers: {
-                    // Specifica il tipo di contenuto
+                    // Specifica che il contenuto è in formato JSON
                     "Content-Type": "application/json",
                 },
-                // Invia il nuovo task come JSON
+                // Converte l'oggetto newTask in stringa JSON
                 body: JSON.stringify(newTask),
             });
 
@@ -47,7 +56,7 @@ export default function useTasks() {
     };
 
 
-    // Funziopne per la rimozione di un task 
+    // Funzione per la rimozione di un task 
     const removeTask = async (taskId) => {
 
         try {
@@ -74,16 +83,47 @@ export default function useTasks() {
 
     };
 
-    const updateTask = (updatedTask) => {
+
+    // Funzione per aggiornare un task esistente
+    const updateTask = async (updatedTask) => {
+
+        try {
+
+            // Richiesta PUT per aggiornare il task specificato
+            const response = await fetch(`${VITE_API_URL}/tasks/${updatedTask.id}`, {
+                method: "PUT", // Metodo per aggiornare risorse
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(updatedTask), // Invia la task aggiornata al server
+            });
+
+            const data = await response.json();  // Parsing della risposta
+
+            if (data.success) {
+
+                // Aggiorna la task nello stato globale: sostituisce il task vecchio con quello aggiornato
+                setTasks(prevTasks =>
+                    prevTasks.map(task =>
+                        task.id === updatedTask.id ? data.task : task
+                    )
+                );
+            } else {
+                throw new Error(data.message || "Errore durante l'aggiornamento");
+            }
+        } catch (err) {
+            throw new Error(err.message || "Errore durante l'aggiornamento");
+        }
 
     };
 
+
+    // Espone funzioni e stato globale
     return {
-        tasks,
-        setTasks,
-        addTask,
-        removeTask,
-        updateTask,
+        tasks,        // Lista dei task
+        setTasks,     // Setter diretto dello stato 
+        addTask,      // Funzione per aggiungere un task
+        removeTask,   // Funzione per rimuovere un task
+        updateTask,   // Funzione per modificare un task
     };
-
 }

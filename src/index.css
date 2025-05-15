@@ -1,11 +1,13 @@
-/* Stile per il contenitore della navbar */
+/* ------------------- NAVBAR ------------------- */
+
+/* Stile per l'elemento <nav> */
 nav {
     background-color: #282c34;
     padding: 1rem 2rem;
     text-align: center;
 }
 
-/* Stile base per i link all'interno della navbar */
+/* Link all'interno della navbar */
 nav a {
     color: #ffffff;
     text-decoration: none;
@@ -14,16 +16,20 @@ nav a {
     transition: color 0.3s ease;
 }
 
+/* Effetto hover sui link della navbar */
 nav a:hover {
     color: #61dafb;
 }
 
+/* Stile per il link attivo (pagina corrente) */
 nav a.active {
     border-bottom: 0.125rem solid #61dafb;
     padding-bottom: 0.2rem;
 }
 
-/* Stile per il contenuto della tabella */
+/* ------------------- TABELLA TASK ------------------- */
+
+/* Stile generale della tabella */
 table {
     width: 80%;
     margin: 2rem auto;
@@ -31,7 +37,7 @@ table {
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
 }
 
-/* Intestazioni della tabella */
+/* Intestazione della tabella (<thead> <th>) */
 thead th {
     background-color: #007bff;
     color: white;
@@ -39,34 +45,20 @@ thead th {
     text-align: left;
 }
 
-/* Righe della tabella */
+/* Celle del corpo tabella (<tbody> <td>) */
 tbody td {
     padding: 1rem;
-    border-bottom: 0.0625rem solid #ddd;
+    border-bottom: 1px solid #ddd;
 }
 
-/* Colore alternato delle righe */
+/* Riga alternata (parità) per migliorare la leggibilità */
 tbody tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
-/* Colori per lo stato del task */
-.status.to-do {
-    background-color: #f8d7da;
-    color: #721c24;
-}
+/* ------------------- STATO TASK ------------------- */
 
-.status.doing {
-    background-color: #fff3cd;
-    color: #856404;
-}
-
-.status.done {
-    background-color: #d4edda;
-    color: #155724;
-}
-
-/* Celle dello Stato */
+/* Contenitore per mostrare lo stato di un task */
 .status {
     padding: 0.5rem;
     border-radius: 0.5rem;
@@ -74,15 +66,34 @@ tbody tr:nth-child(even) {
     text-align: center;
 }
 
-/* Stile per il contenuto del form */
+/* Stato: To Do */
+.status.to-do {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Stato: In corso (Doing) */
+.status.doing {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+/* Stato: Completato (Done) */
+.status.done {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+/* ------------------- FORM ------------------- */
+
+/* Contenitore del form */
 form {
-    max-width: 31.25rem;
-    /* 500px */
+    max-width: 500px;
     margin: 2rem auto;
     padding: 2rem;
     background-color: #f4f4f4;
     border-radius: 0.5rem;
-    box-shadow: 0 0.125rem 0.375rem rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Titolo del form */
@@ -93,12 +104,12 @@ h1 {
     font-size: 1.75rem;
 }
 
-/* Ogni blocco del form */
+/* Spaziatura tra i campi del form */
 form div {
     margin-bottom: 1.2rem;
 }
 
-/* Label */
+/* Etichette dei campi form */
 form label {
     display: block;
     margin-bottom: 0.4rem;
@@ -106,19 +117,19 @@ form label {
     color: #444;
 }
 
-/* Input, textarea e select */
+/* Input, textarea e select nel form */
 form input,
 form textarea,
 form select {
     width: 100%;
     padding: 0.6rem;
-    border: 0.0625rem solid #ccc;
+    border: 1px solid #ccc;
     border-radius: 0.25rem;
     font-size: 1rem;
     box-sizing: border-box;
 }
 
-/* Bottone */
+/* Pulsante di invio del form */
 form button {
     background-color: #007bff;
     color: white;
@@ -130,31 +141,33 @@ form button {
     transition: background-color 0.3s ease;
 }
 
+/* Hover sul pulsante */
 form button:hover {
     background-color: #0056b3;
 }
 
-/* Messaggio di errore */
+/* Messaggio di errore nel form */
 form p {
     color: red;
     margin-top: 0.5rem;
     font-size: 0.95rem;
 }
 
+/* ------------------- PAGINA DETTAGLIO TASK ------------------- */
 
-/* Stile Container per la pagina dettaglio */
+/* Contenitore principale dei dettagli */
 .task-detail-container {
     max-width: 600px;
     margin: 3rem auto;
     padding: 2rem;
     background-color: #ffffff;
     border-radius: 0.5rem;
-    box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
     font-size: 1.05rem;
     color: #333;
 }
 
-/* Titolo della pagina */
+/* Titolo della pagina dettaglio */
 .task-detail-title {
     text-align: center;
     color: #007bff;
@@ -162,74 +175,37 @@ form p {
     margin-bottom: 1.5rem;
 }
 
-/* Messaggio di caricamento */
+/* Contenitore delle info del task */
+.task-info {
+    margin-bottom: 1.2rem;
+}
+
+/* Paragrafi informativi del task */
+.task-info p {
+    font-size: 1.05rem;
+    margin: 0.5rem 0;
+}
+
+/* Nome del task evidenziato */
+.task-info .task-name {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Messaggio durante il caricamento dei dati */
 .loading-message {
     text-align: center;
     font-size: 1.2rem;
     color: #555;
 }
 
-/* Bottone per eliminare il task */
-.delete-button {
-    margin-top: 1.5rem;
-    background-color: #dc3545;
-    color: white;
-    padding: 0.6rem 1.2rem;
-    border: none;
-    border-radius: 0.25rem;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+/* ------------------- BOTTONI ------------------- */
 
-.delete-button:hover {
-    background-color: #c82333;
-}
-
-
-/* Stile Contenitore della pagina TaskDetail */
-.task-detail-container {
-    max-width: 600px;
-    margin: 3rem auto;
-    padding: 2rem;
-    background-color: #ffffff;
-    border-radius: 0.5rem;
-    box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.1);
-    font-size: 1.05rem;
-    color: #333;
-}
-
-/* Titolo della pagina */
-.task-detail-title {
-    text-align: center;
-    color: #007bff;
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
-}
-
-/* Stile per le informazioni del task */
-.task-info {
-    margin-bottom: 1.2rem;
-}
-
-/* Stile per ogni singolo campo delle informazioni del task */
-.task-info p {
-    font-size: 1.05rem;
-    margin: 0.5rem 0;
-}
-
-/* Stile per il nome del task */
-.task-info .task-name {
-    font-weight: bold;
-    color: #333;
-}
-
-/* Stile per il pulsante "Elimina Task" */
-.delete-button {
+/* Bottone per cancellare */
+.delete-button,
+.confirm-delete-button {
     display: inline-block;
     margin-top: 1.5rem;
-    background-color: #dc3545;
-    color: white;
     padding: 0.6rem 1.2rem;
     border: none;
     border-radius: 0.25rem;
@@ -238,12 +214,29 @@ form p {
     transition: background-color 0.3s ease;
 }
 
-/* Hover effect per il bottone Elimina */
+/* Bottone "Elimina" */
+.delete-button {
+    background-color: #dc3545;
+    color: white;
+}
+
 .delete-button:hover {
     background-color: #c82333;
 }
 
-/* Messaggio di errore */
+/* Bottone "Conferma eliminazione" */
+.confirm-delete-button {
+    background-color: #007bff;
+    color: white;
+}
+
+.confirm-delete-button:hover {
+    background-color: #0056b3;
+}
+
+/* ------------------- MESSAGGI ------------------- */
+
+/* Messaggio di errore generico */
 .error-message {
     color: red;
     margin-top: 1rem;
@@ -251,30 +244,9 @@ form p {
     text-align: center;
 }
 
-/* Pulsante di conferma eliminazione (dopo il click) */
-.confirm-delete-button {
-    background-color: #007bff;
-    color: white;
-    padding: 0.6rem 1.2rem;
-    border: none;
-    border-radius: 0.25rem;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+/* ------------------- MODALE ------------------- */
 
-/* Hover effect per il pulsante di conferma */
-.confirm-delete-button:hover {
-    background-color: #0056b3;
-}
-
-/* Stile per la zona di caricamento (se il task non è ancora stato caricato) */
-.loading-message {
-    text-align: center;
-    font-size: 1.2rem;
-    color: #555;
-}
-
+/* Sfondo scuro della modale */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -288,6 +260,7 @@ form p {
     z-index: 999;
 }
 
+/* Contenuto centrale della modale */
 .modal-content {
     background: white;
     padding: 1.5rem;
@@ -297,8 +270,47 @@ form p {
     text-align: center;
 }
 
+/* Contenitore dei bottoni della modale */
 .modal-buttons {
     display: flex;
     justify-content: space-around;
     margin-top: 1rem;
+}
+
+/* ------------------- MODIFICA TASK ------------------- */
+
+/* Form per la modifica del task */
+.edit-task-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+/* Gruppo di input nel form */
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Etichetta nel gruppo form */
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+/* Input generico */
+.form-input,
+.form-textarea,
+.form-select {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+/* Textarea con altezza minima */
+.form-textarea {
+    resize: vertical;
+    min-height: 80px;
 }

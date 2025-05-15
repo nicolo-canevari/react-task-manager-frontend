@@ -26,6 +26,7 @@ export default function AddTask() {
 
     // Funzione eseguita al submit del form
     const handleSubmit = async (e) => {
+
         e.preventDefault(); // Evita il refresh della pagina
 
         // Validazione: il titolo non deve essere vuoto
@@ -49,6 +50,7 @@ export default function AddTask() {
         };
 
         try {
+
             // Aggiunge la task tramite API
             await addTask(newTask);
 
@@ -71,9 +73,11 @@ export default function AddTask() {
             // Gestione dell'errore
             alert(err.message || "Errore durante la creazione del task.");
         }
+
     };
 
     return (
+
         <div>
             <h1>Aggiungi un nuovo Task</h1>
 
@@ -101,17 +105,23 @@ export default function AddTask() {
 
                 {/* Campo select per stato */}
                 <div>
+
                     <label htmlFor="status">Stato:</label><br />
                     <select id="status" ref={statusRef} defaultValue="To do">
                         <option value="To do">To do</option>
                         <option value="Doing">Doing</option>
                         <option value="Done">Done</option>
                     </select>
+
                 </div>
 
                 {/* Bottone per inviare */}
                 <button type="submit">Aggiungi Task</button>
+
             </form>
+
         </div>
+
     );
+
 }

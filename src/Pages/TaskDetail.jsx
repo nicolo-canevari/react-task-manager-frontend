@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { GlobalContext } from "../Context/GlobalContext";
 import Modal from "../Components/Modal";
+import EditTaskModal from "../Components/EditTaskModal";
 
 // Componente che mostra i dettagli di un singolo task
 export default function TaskDetail() {
@@ -13,10 +14,10 @@ export default function TaskDetail() {
     const navigate = useNavigate();
 
     // Ottiene la lista globale dei task dal context
-    const { tasks, setTasks, removeTask } = useContext(GlobalContext);
+    const { tasks, setTasks, removeTask, updateTask } = useContext(GlobalContext);
 
-    // stato per mostrare/nascondere la modale
-    const [showModal, setShowModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false); // Stato per la modale di eliminazione
+    const [showEditModal, setShowEditModal] = useState(false);     // Stato per la modale di modifica
 
     // Cerca il task corrispondente all'id ottenuto dalla URL
     const task = tasks.find((t) => t.id === parseInt(id));
@@ -29,6 +30,7 @@ export default function TaskDetail() {
     // Funzione chiamata quando si preme il pulsante "Elimina Task"
     const handleDeleteConfirm = async () => {
         try {
+
             // Chiama la funzione per rimuovere il task dal backend o dallo stato globale
             await removeTask(task.id);
             // Mostra un messaggio di conferma all'utente
@@ -41,11 +43,34 @@ export default function TaskDetail() {
             // Se c'è un errore, mostra un messaggio all'utente
             alert(err.message || "Errore durante l'eliminazione.");
         }
+
     };
+
+    // Funzione chiamata al salvataggio del task modificato
+    const handleSaveEdit = async (updatedTask) => {
+
+        try {
+
+            await updateTask(updatedTask); // aggiorna sul backend 
+            setTasks((prev) =>
+                prev.map((t) => (t.id === updatedTask.id ? updatedTask : t))
+            );
+
+            setShowEditModal(false); // chiude la modale
+            alert("Task aggiornato con successo.");
+
+        } catch (err) {
+            alert(err.message || "Errore durante l'aggiornamento.");
+        }
+
+    };
+
 
     return (
         <div className="task-detail-container">
+
             <h2 className="task-detail-title">Dettagli Task</h2>
+
             <div className="task-info">
                 <p><strong className="task-name">Nome:</strong> {task.title}</p>
                 <p><strong className="task-name">Descrizione:</strong> {task.description}</p>
@@ -53,21 +78,39 @@ export default function TaskDetail() {
                     <span className={`status ${task.status.toLowerCase()}`}>{task.status}</span>
                 </p>
                 <p><strong className="task-name">Creato il:</strong> {new Date(task.createdAt).toLocaleString()}</p>
+
             </div>
 
-            {/* Bottone per aprire la modale */}
-            <button className="delete-button" onClick={() => setShowModal(true)}>Elimina Task</button>
+            <div className="task-actions">
 
-            {/* Modale di conferma eliminazione */}
+                {/* Bottone per modificare */}
+                <button className="edit-button" onClick={() => setShowEditModal(true)}>Modifica Task</button>
+
+                {/* Bottone per eliminare */}
+                <button className="delete-button" onClick={() => setShowDeleteModal(true)}>Elimina Task</button>
+
+            </div>
+
+            {/* Modale eliminazione */}
             <Modal
                 title="Conferma eliminazione"
                 content="Sei sicuro di voler eliminare questo task? L'operazione non può essere annullata."
-                show={showModal}
-                onClose={() => setShowModal(false)}
+                show={showDeleteModal}
+                onClose={() => setShowDeleteModal(false)}
                 onConfirm={handleDeleteConfirm}
                 confirmText="Elimina"
             />
+
+            {/* Modale modifica */}
+            <EditTaskModal
+                show={showEditModal}
+                onClose={() => setShowEditModal(false)}
+                task={task}
+                onSave={handleSaveEdit}
+            />
+
         </div>
+
     );
 
 }
