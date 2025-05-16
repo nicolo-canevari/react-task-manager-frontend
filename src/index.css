@@ -2,7 +2,7 @@
 
 /* Stile per l'elemento <nav> */
 nav {
-    background-color: #282c34;
+    background-color: #1f1f1f;
     padding: 1rem 2rem;
     text-align: center;
 }
@@ -13,6 +13,7 @@ nav a {
     text-decoration: none;
     margin: 0 1rem;
     font-weight: 500;
+    font-size: 1rem;
     transition: color 0.3s ease;
 }
 
@@ -23,9 +24,10 @@ nav a:hover {
 
 /* Stile per il link attivo (pagina corrente) */
 nav a.active {
-    border-bottom: 0.125rem solid #61dafb;
+    border-bottom: 0.2rem solid #61dafb;
     padding-bottom: 0.2rem;
 }
+
 
 /* ------------------- TABELLA TASK ------------------- */
 
@@ -35,36 +37,48 @@ table {
     margin: 2rem auto;
     border-collapse: collapse;
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
 }
 
 /* Intestazione della tabella (<thead> <th>) */
 thead th {
     background-color: #007bff;
-    color: white;
+    color: #ffffff;
     padding: 1rem;
     text-align: left;
+    font-size: 1.5em;
 }
 
 /* Celle del corpo tabella (<tbody> <td>) */
 tbody td {
     padding: 1rem;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 0.05rem solid #ddd;
+    height: 2rem;
 }
 
 /* Riga alternata (parità) per migliorare la leggibilità */
 tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
+    background-color: #f0f2f5;
 }
+
 
 /* ------------------- STATO TASK ------------------- */
 
 /* Contenitore per mostrare lo stato di un task */
 .status {
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 4.5em;
+    width: 60%;
+    padding: 0.4em 1em;
+    border-radius: 0.5em;
+    font-size: 0.9rem;
+    font-weight: 600;
     text-align: center;
+    box-sizing: border-box;
 }
+
 
 /* Stato: To Do */
 .status.to-do {
@@ -84,37 +98,35 @@ tbody tr:nth-child(even) {
     color: #155724;
 }
 
+
 /* ------------------- FORM ------------------- */
 
 /* Contenitore del form */
 form {
-    max-width: 500px;
+    max-width: 36rem;
     margin: 2rem auto;
     padding: 2rem;
-    background-color: #f4f4f4;
+    background-color: #fdfdfd;
     border-radius: 0.5rem;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.06);
+    font-size: 1rem;
 }
 
 /* Titolo del form */
-h1 {
+form h1 {
     text-align: center;
-    color: #333;
+    font-size: 1.8rem;
+    color: #007bff;
     margin-bottom: 1.5rem;
-    font-size: 1.75rem;
-}
-
-/* Spaziatura tra i campi del form */
-form div {
-    margin-bottom: 1.2rem;
 }
 
 /* Etichette dei campi form */
 form label {
     display: block;
     margin-bottom: 0.4rem;
-    font-weight: bold;
-    color: #444;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #333;
 }
 
 /* Input, textarea e select nel form */
@@ -123,7 +135,7 @@ form textarea,
 form select {
     width: 100%;
     padding: 0.6rem;
-    border: 1px solid #ccc;
+    border: 0.1rem solid #ccc;
     border-radius: 0.25rem;
     font-size: 1rem;
     box-sizing: border-box;
@@ -132,13 +144,14 @@ form select {
 /* Pulsante di invio del form */
 form button {
     background-color: #007bff;
-    color: white;
-    padding: 0.7rem 1.5rem;
-    border: none;
-    border-radius: 0.25rem;
+    color: #fff;
+    padding: 0.7em 1.5em;
     font-size: 1rem;
+    border: none;
+    border-radius: 0.3rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin-top: 1em;
 }
 
 /* Hover sul pulsante */
@@ -153,16 +166,17 @@ form p {
     font-size: 0.95rem;
 }
 
+
 /* ------------------- PAGINA DETTAGLIO TASK ------------------- */
 
 /* Contenitore principale dei dettagli */
 .task-detail-container {
-    max-width: 600px;
+    max-width: 38rem;
     margin: 3rem auto;
     padding: 2rem;
-    background-color: #ffffff;
+    background-color: #fff;
     border-radius: 0.5rem;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08);
     font-size: 1.05rem;
     color: #333;
 }
@@ -175,19 +189,13 @@ form p {
     margin-bottom: 1.5rem;
 }
 
-/* Contenitore delle info del task */
-.task-info {
-    margin-bottom: 1.2rem;
-}
-
 /* Paragrafi informativi del task */
 .task-info p {
-    font-size: 1.05rem;
     margin: 0.5rem 0;
 }
 
 /* Nome del task evidenziato */
-.task-info .task-name {
+.task-name {
     font-weight: bold;
     color: #333;
 }
@@ -199,18 +207,18 @@ form p {
     color: #555;
 }
 
+
 /* ------------------- BOTTONI ------------------- */
 
 /* Bottone per cancellare */
+button,
 .delete-button,
 .confirm-delete-button {
-    display: inline-block;
-    margin-top: 1.5rem;
-    padding: 0.6rem 1.2rem;
-    border: none;
-    border-radius: 0.25rem;
+    padding: 0.6em 1.2em;
     font-size: 1rem;
+    border-radius: 0.25rem;
     cursor: pointer;
+    border: none;
     transition: background-color 0.3s ease;
 }
 
@@ -234,48 +242,50 @@ form p {
     background-color: #0056b3;
 }
 
+
 /* ------------------- MESSAGGI ------------------- */
 
 /* Messaggio di errore generico */
 .error-message {
-    color: red;
-    margin-top: 1rem;
-    font-size: 1rem;
     text-align: center;
+    color: red;
+    font-size: 1rem;
+    margin-top: 1em;
 }
+
 
 /* ------------------- MODALE ------------------- */
 
 /* Sfondo scuro della modale */
 .modal-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     background: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 999;
+    z-index: 1000;
 }
 
 /* Contenuto centrale della modale */
 .modal-content {
-    background: white;
+    background-color: #fff;
     padding: 1.5rem;
-    border-radius: 8px;
-    max-width: 400px;
-    width: 100%;
+    border-radius: 0.5rem;
+    width: 90%;
+    max-width: 25rem;
     text-align: center;
 }
+
 
 /* Contenitore dei bottoni della modale */
 .modal-buttons {
     display: flex;
-    justify-content: space-around;
-    margin-top: 1rem;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+    gap: 1rem;
 }
+
 
 /* ------------------- MODIFICA TASK ------------------- */
 
@@ -291,26 +301,27 @@ form p {
 .form-group {
     display: flex;
     flex-direction: column;
+    gap: 0.2rem;
 }
 
 /* Etichetta nel gruppo form */
 .form-group label {
     font-weight: bold;
-    margin-bottom: 0.5rem;
+    font-size: 1rem;
 }
 
 /* Input generico */
 .form-input,
 .form-textarea,
 .form-select {
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: 0.6rem;
+    border: 0.1rem solid #ccc;
+    border-radius: 0.25rem;
     font-size: 1rem;
 }
 
 /* Textarea con altezza minima */
 .form-textarea {
     resize: vertical;
-    min-height: 80px;
+    min-height: 5rem;
 }
